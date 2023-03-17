@@ -1,29 +1,33 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
+import createApp from '../app.js';
+import { createServer } from 'http';
+import { launch } from 'puppeteer';
+import { createTerminus } from '@godaddy/terminus';
 
-const app = require('../app');
-const debug = require('debug')('img-gen-api:server');
-const http = require('http');
-
-/**
- * Get port from environment and store in Express.
- */
+const browser = await launch({ headless: false })
+const app = createApp(browser)
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
+const server = createServer(app);
 
-const server = http.createServer(app);
+const onSignal = async () => {
+  console.log('server is starting cleanup')
+  await browser.close()
+}
+
+const onHealthCheck = async () => { }
 
 /**
- * Listen on provided port, on all network interfaces.
+ * Handle graceful shutdowns.
  */
+createTerminus(server, {
+  signal: 'SIGINT',
+  healthChecks: { '/healthcheck': onHealthCheck },
+  onSignal
+})
 
 server.listen(port);
 server.on('error', onError);
@@ -32,7 +36,6 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -52,7 +55,6 @@ function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -86,5 +88,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  // TODO fix
+  // debug('Listening on ' + bind);
 }

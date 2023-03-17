@@ -1,17 +1,23 @@
-const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const compression = require('compression')
+import express, { json, urlencoded } from 'express';
+import logger from 'morgan';
+import compression from 'compression';
+import render from './render.js';
 
-const app = express();
+const createApp = (browser) => {
+  const app = express();
 
-app.use(logger('dev'));
-app.use(compression());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+  app.use(logger('dev'));
+  app.use(compression());
+  app.use(json());
+  app.use(urlencoded({ extended: true }));
 
-app.post('/', (req, res) => {
-  res.send(req.body);
-});
+  app.post('/', (req, res, next) => {
+    render(browser, req.body)
+      .then((data) => res.send(data))
+      .catch((err) => next(err));
+  });
 
-module.exports = app;
+  return app;
+}
+
+export default createApp;
