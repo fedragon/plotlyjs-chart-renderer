@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: imggen-k6
+  namespace: default
+spec:
+  ttlSecondsAfterFinished: 600
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: k6
+          image: imggen-k6:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: K6_ITERATIONS
+              value: "500"
+            - name: K6_VUS
+              value: "10"

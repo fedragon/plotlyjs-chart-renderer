@@ -8,18 +8,18 @@ const render = async (browser, chart) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-  writeFileSync(join(__dirname, 'tmp', `${id}.html`), htmlFor(chart))
+  writeFileSync(join(__dirname, `${id}.html`), htmlFor(chart))
 
   const page = await browser.newPage()
 
-  await page.goto(`file://${__dirname}/tmp/${id}.html`)
+  await page.goto(`file://${__dirname}/${id}.html`)
   await page.waitForSelector('#chart-rendered')
 
   const encoded = await page.screenshot({ encoding: 'binary' })
 
   await page.close()
 
-  rmSync(join(__dirname, 'tmp', `${id}.html`))
+  rmSync(join(__dirname, `${id}.html`))
 
   return encoded
 }

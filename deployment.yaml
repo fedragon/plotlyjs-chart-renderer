@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imggen
+  namespace: default
+  labels:
+    app: imggen
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: imggen
+  template:
+    metadata:
+      labels:
+        app: imggen
+    spec:
+      containers:
+        - name: api
+          image: imggen:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: imggen
+  namespace: default
+  labels:
+    app: imggen
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: api
+  selector:
+    app: imggen

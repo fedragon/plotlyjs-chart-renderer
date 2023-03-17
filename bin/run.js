@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import createApp from '../app.js';
+import createApp from '../app/app.js';
 import { createServer } from 'http';
 import { launch } from 'puppeteer';
 import { createTerminus } from '@godaddy/terminus';
 
-const browser = await launch({ headless: false })
+const browser = await launch({ headless: true })
 const app = createApp(browser)
 
 const port = normalizePort(process.env.PORT || '3000');
@@ -88,6 +88,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  // TODO fix
-  // debug('Listening on ' + bind);
+
+  console.log('Listening on ' + bind);
 }

@@ -4,12 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node ./bin/www.js"
+    "start": "node ./bin/run.js"
   },
   "dependencies": {
     "@godaddy/terminus": "^4.11.2",
     "compression": "^1.7.4",
-    "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "^4.18.2",
     "morgan": "~1.9.1",
