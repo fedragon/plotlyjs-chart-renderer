@@ -24,7 +24,7 @@ const onHealthCheck = async () => { }
  * Handle graceful shutdowns.
  */
 createTerminus(server, {
-  signal: 'SIGINT',
+  signal: 'SIGTERM',
   healthChecks: { '/healthcheck': onHealthCheck },
   onSignal
 })
