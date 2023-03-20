@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: imggen-k6
+  name: imggen-spike-tests
   namespace: default
 spec:
   ttlSecondsAfterFinished: 600
@@ -10,7 +10,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: k6
-          image: imggen-k6:latest
+          image: imggen-spike-tests:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: K6_ITERATIONS
