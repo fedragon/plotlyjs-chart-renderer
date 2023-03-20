@@ -9,15 +9,10 @@ const charts = new SharedArray('charts', function () {
 
 export const options = {
   scenarios: {
-    spike: {
-      executor: "ramping-arrival-rate",
-      preAllocatedVUs: 10,
-      stages: [
-        { duration: "30s", target: 30, },
-        { duration: "2m", target: 100, },
-        { duration: "30s", target: 30, },
-        { duration: "10s", target: 0, },
-      ],
+    performance: {
+      executor: 'shared-iterations',
+      vus: 10,
+      iterations: 500,
     },
   },
 };

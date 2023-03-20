@@ -1,3 +1,4 @@
+# serves scheduled jobs
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,7 +28,7 @@ spec:
               cpu: 0.25
               memory: 128Mi
             limits:
-              cpu: 1
+              cpu: 0.75
               memory: 512Mi
           livenessProbe:
             httpGet:
@@ -57,3 +58,64 @@ spec:
       targetPort: api
   selector:
     app: imggen
+---
+# serves website users
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imggen-web
+  namespace: default
+  labels:
+    app: imggen-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: imggen-web
+  template:
+    metadata:
+      labels:
+        app: imggen-web
+    spec:
+      containers:
+        - name: api
+          image: imggen-web
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: api
+          resources:
+            requests:
+              cpu: 0.25
+              memory: 128Mi
+            limits:
+              cpu: 0.75
+              memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: imggen-web
+  namespace: default
+  labels:
+    app: imggen-web
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: api
+  selector:
+    app: imggen-web

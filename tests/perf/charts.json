@@ -1,0 +1,7 @@
+[
+  { "data": [{ "x": [ 1, 2, 3, 4 ], "y": [ 10, 15, 13, 17 ], "mode": "markers", "type": "scatter" }, { "x": [ 2, 3, 4, 5 ], "y": [ 16, 5, 11, 9 ], "mode": "lines", "type": "scatter" }, { "x": [ 1, 2, 3, 4 ], "y": [ 12, 9, 15, 12 ], "mode": "lines+markers", "type": "scatter" } ], "layout": {}},
+  { "data": [{ "x": ["Feature A", "Feature B", "Feature C", "Feature D", "Feature E"], "y": [20, 14, 23, 25, 22], "marker": { "color": ["rgba(204,204,204,1)", "rgba(222,45,38,0.8)", "rgba(204,204,204,1)", "rgba(204,204,204,1)", "rgba(204,204,204,1)"] }, "type": "bar" }], "layout": { "title": "Least Used Feature" } },
+  { "data": [{ "x": [ 1, 2, 3, 4 ], "y": [ 0, 2, 3, 5 ], "fill": "tozeroy", "type": "scatter" }, { "x": [ 1, 2, 3, 4 ], "y": [ 3, 5, 1, 7 ], "fill": "tonexty", "type": "scatter" } ], "layout": {} },
+  { "data": [{ "x": [ 1, 2, 3, 4 ], "y": [ 10, 11, 12, 13 ], "mode": "markers", "marker": { "size": [ 40, 60, 80, 100 ] } }], "layout": { "title": "Marker Size", "showlegend": false, "height": 600, "width": 600 }},
+  { "data": [{ "type": "sunburst", "labels": [ "Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura" ], "parents": [ "", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve" ], "values": [ 10, 14, 12, 10, 2, 6, 6, 4, 4 ], "outsidetextfont": { "size": 20, "color": "#377eb8" }, "leaf": { "opacity": 0.4 }, "marker": { "line": { "width": 2 } } } ], "layout": { "margin": { "l": 0, "r": 0, "b": 0, "t": 0 }, "width": 500, "height": 500 }}
+]
