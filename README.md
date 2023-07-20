@@ -1,4 +1,4 @@
-# Image Generation api
+# Plotly PNG renderer
 
 Provides an API that renders PNG images starting from a Plotly JSON object.
 
