@@ -1,6 +1,6 @@
-# Plotly PNG renderer
+# Plotly chart renderer
 
-Provides an API that renders PNG images starting from a Plotly JSON object.
+Single-endpoint API that renders a user-provided [Plotly JS](https://plotly.com/javascript/) chart and returns it as a PNG image.
 
 ## Build
 
